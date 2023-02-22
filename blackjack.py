@@ -128,7 +128,19 @@ class Game:
         print(f"Total: {self.dealer.calculate_hand_value()}")
     
     # determine winner
+        player_total = self.player.calculate_hand_value()
+        dealer_total = self.dealer.calculate_hand_value()
         
+        if player_total > 21:
+            print("Dealer wins - Player busts!")
+        elif dealer_total > 21:
+            print("Player wins - Dealer busts!")
+        elif player_total > dealer_total:
+            print("Player wins!")
+        elif dealer_total > player_total:
+            print("Dealer wins!")
+        else:
+            print("It seems we have a tie!")
 
 
 new_game = Game()
