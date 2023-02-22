@@ -40,15 +40,18 @@ class Player:
         return f'{self.name} is the player'
     
     def turn(self):
-        '''Player decides how many times to hit before staying'''
-        pass
-    # def draw_card(self, deck):
-    #     card = deck.deal_card()
-    #     self.hand.append(card)
-    #     self.points += card.value
-    
-    # def __str__(self):
-    #     return f"{self.name} has {len(self.hand)} cards: {[str(card) for card in self.hand]} ({self.points} points)"
+        while True:
+            print(f"\n{self.name}'s hand: ") # \n represents new line break for a cleaner look
+            for card in self.hand:
+                print(card)
+            print(f"Total: {self.get_hand_value()}")
+            decision = input("\nDo you want to hit or stay? ")
+            if decision.lower() == 'hit':
+                print(F"{self.name} busts!")
+                return 'bust'
+            else:
+                return 'stay'
+            
 
 
 class Dealer(Player): # inherits from Player, init will be the same but turn will be different # everything is the same as player, unless you write it differently in here
@@ -58,6 +61,8 @@ class Dealer(Player): # inherits from Player, init will be the same but turn wil
     
     def __str__(self):
         return f'{self.name} is the dealer'
+    
+    
     
     def turn(self):
         '''unlike player, dealer follows house rules and stays at 17, no choice'''
@@ -72,18 +77,16 @@ class Game:
         self.dealer = Dealer()
         self.setup() # calling the Game class's setup function
 
-    def setup(self): # literally_any_word = name of class
-        self.deck = Deck() # calls line 13
-        self.deck.add_cards() # calls line 16
-        # for card in self.deck.cards:
-        #     print(card) # calls the __str__ method for each card
+    def setup(self):
+        self.deck = Deck()
+        self.deck.add_cards()
+    
+    def player_turn(self):
+        pass
 
 
 new_game = Game()
-# new_game.setup()
-# calls Player __str__ method
-# calls Dealer __str__ method
-# created the game and the deck with cards
+
 
 new_game.deck.shuffle()
 card = new_game.deck.deal_card()
@@ -102,13 +105,12 @@ print(new_game.player)
 for card in new_game.player.hand:
     print(card)
 
-# tells the game to tell its deck to shuffle itself
 # TODO
 # ✅ make a player, like we did with Deck 
 # ✅ make a dealer, also like we did with Deck
 # play
 # ✅ shuffle deck 
-# deal cards
+# ✅ deal cards
 # player's turn (hit/stay)
 # calculate score from cards in hand
 # dealer's turn
